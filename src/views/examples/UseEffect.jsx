@@ -10,8 +10,20 @@ function calcFatorial(num){
 }
 
 const UseEffect = (props) => {
-    const [number, setNumber] = useState(1)
-    const [fatorial, setFatorial] = useState(1)
+    const [number, setNumber] = useState(1);
+    const [fatorial, setFatorial] = useState(1);
+    const [resposta, setResposta] = useState('')
+    const [number1, setNumber1] = useState(0)
+    console.log(typeof(number1));
+
+    useEffect(function(){
+        if (number1 % 2 == 0) {
+            setResposta('par');
+        }else {
+            setResposta('impar');
+
+        }
+    }, [number1])
 
     useEffect(function(){
         setFatorial(calcFatorial(number))
@@ -38,7 +50,14 @@ const UseEffect = (props) => {
                 onChange={e => setNumber(e.target.value)} />
             </div>
             <SectionTitle title="Exercicio #02"/>
-
+            <div className="center">
+                <div>
+                    <span className="text">Par Ou Impar?</span>
+                    <span className="text red">{number1} e {resposta}</span>
+                </div>
+                <input type="number" value={number1} onChange={e => setNumber1(e.target.value)} />
+                
+            </div>
         </div>
     )
 }
