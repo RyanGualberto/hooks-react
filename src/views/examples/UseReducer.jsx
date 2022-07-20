@@ -1,35 +1,11 @@
 import React, { useReducer } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 import SectionTitle from '../../components/layout/SectionTitle'
-const initialState = {
-    number: 0,
-    cart: [],
-    user: null,
-    products: [{}, {}]
-}
-
-function reducer(state, action){
-    switch (action.type) {
-        case 'add2ToNumber':
-            return {...state, number: state.number + 2}
-        case 'x7':
-            return {...state, number: state.number * 7}
-        case '/25': 
-            return {...state, number: state.number / 25}
-        case 'int':
-            return {...state, number: parseInt(state.number)}
-        case '+n':
-            return {...state, number: state.number + action.number}
-        case 'login':
-            return {...state, user: {name: action.name}}
-        default:
-            return state
-            break;
-    }
-}
+import {initialState, reducer} from '../../store';
+import { numberAdd2, login } from '../../store/actions';
 
 const UseReducer = (props) => {
-    const [state, exec] = useReducer(reducer, initialState)
+    const [state, dispatch] = useReducer(reducer, initialState)
 
     return (
         <div className="UseReducer">
@@ -47,13 +23,13 @@ const UseReducer = (props) => {
                 <div>
                     <button 
                     className='btn'
-                    onClick={() => exec({type: 'add2ToNumber'})}
+                    onClick={() => numberAdd2(dispatch)}
                     >
                         +2
                     </button>
                     <button 
                     className='btn'
-                    onClick={() => exec({type: 'login', name: 'Ryan'})}
+                    onClick={() => login(dispatch, 'Ryan')}
                     >
                         login
                     </button>
@@ -66,22 +42,22 @@ const UseReducer = (props) => {
                     <div>
                         <button 
                         className="btn"
-                        onClick={() => exec({type: 'x7'})}>
+                        onClick={() => dispatch({type: 'x7'})}>
                             x7
                         </button>
                         <button 
                         className="btn"
-                        onClick={() => exec({type: '/25'})}>
+                        onClick={() => dispatch({type: '/25'})}>
                             /25
                         </button>
                         <button 
                         className="btn"
-                        onClick={() => exec({type: 'int'})}>
+                        onClick={() => dispatch({type: 'int'})}>
                             int
                         </button>
                         <button 
                         className="btn"
-                        onClick={() => exec({type: '+n', number: 5})}>
+                        onClick={() => dispatch({type: '+n', number: 5})}>
                             +n
                         </button>
                     </div>
